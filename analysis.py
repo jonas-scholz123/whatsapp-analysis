@@ -145,12 +145,6 @@ def messages_over_time(data, timeframe = "day"):
             if counter == 7:
                 counter = 0
 
-    #print(messages_per_day)
-    #plt.plot(messages_per_day.keys(), messages_per_day.values())
-#    plt.xticks(rotation=70)
-#    plt.plot_date(messages_per_week.keys(), messages_per_week.values(), fmt='')
-#    plt.show()
-
     plt.show()
     if timeframe == "day":
         return messages_per_day
@@ -158,11 +152,12 @@ def messages_over_time(data, timeframe = "day"):
         return messages_per_week
     return
 
-participant_data = parser(fpath = "XXXXXXXXXX.txt") #TXT FILE FPATH HERE
+participant_data = parser(fpath = "chat_histories/archive_juan.txt") #TXT FILE FPATH HERE
 for p in participant_data.keys():
     msg_vs_time_dict = messages_over_time(participant_data[p])
     ax = plt.subplot(111)
     ax.bar(msg_vs_time_dict.keys(), msg_vs_time_dict.values(),width = 10) #NR OF DAYS PER BAR = width
     ax.xaxis_date()
-    plt.title(p)  
+    plt.xticks(rotation=70)
+    plt.title(p)
 plt.show()
