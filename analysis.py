@@ -125,39 +125,23 @@ def parser(fpath):
                 })
     return participant_data
 
-def messages_over_time(data, timeframe = "day"):
+def messages_over_time(data):
     messages_per_day = {}
     for message_dict in data:
         if message_dict["datetime_date"] in messages_per_day:
             messages_per_day[message_dict["datetime_date"]] += 1
         else:
             messages_per_day[message_dict["datetime_date"]] = 1
-    messages_per_week = {}
-    counter = 0
-    for date in messages_per_day.keys():
-        if counter == 0:
-            current_entry = date
-            messages_per_week[current_entry] = messages_per_day[date]
-            counter += 1
-        else:
-            messages_per_week[current_entry] += messages_per_day[date]
-            counter += 1
-            if counter == 7:
-                counter = 0
-
-    plt.show()
-    if timeframe == "day":
-        return messages_per_day
-    elif timeframe == "week":
-        return messages_per_week
-    return
+    return messages_per_day
 
 participant_data = parser(fpath = "chat_histories/archive_juan.txt") #TXT FILE FPATH HERE
+title = ""
 for p in participant_data.keys():
     msg_vs_time_dict = messages_over_time(participant_data[p])
     ax = plt.subplot(111)
     ax.bar(msg_vs_time_dict.keys(), msg_vs_time_dict.values(),width = 10) #NR OF DAYS PER BAR = width
     ax.xaxis_date()
     plt.xticks(rotation=70)
-    plt.title(p)
+    title += " "+p
+plt.title(title)
 plt.show()

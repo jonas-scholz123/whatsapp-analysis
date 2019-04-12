@@ -1,1 +1,6 @@
 chat_histories
+..gitignore.un~
+.gitignore.un~
+.gitignore~
+.analysis.py.un~
+analysis.py~
