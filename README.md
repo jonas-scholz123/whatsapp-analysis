@@ -1,7 +1,7 @@
 # whatsapp-analysis
 Python tool to show messages over time in whatsapp
 
-#Use
+# Use
 
 1.In the whatsapp app go on a particular chat, options, export chat, without media. This is a txt file containing your entire chat history.
 
