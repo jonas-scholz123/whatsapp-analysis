@@ -7,7 +7,7 @@ Python tool to show messages over time in whatsapp
 
 2. Save said textfile in a directory of your choosing
 
-3. In the analysis.py file specify the filepath at the bottom of the script.
+3. In the analysis.py file specify the filepath of the directory at the bottom of the script.
 
 4. The width option at the bottom of the file specifies the timeframe (nr of days) that go into one bar in the graph.
 
