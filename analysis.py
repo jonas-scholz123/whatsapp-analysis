@@ -74,13 +74,13 @@ def parser(fpath):
         
     f = open(fpath, "r")
     lines = f.readlines()
-
     discarded_lines  = []
     valid_lines      = []
     participants     = []
     participant_data = {}
 
     for line in lines:
+        print(line)
         split_line = line.split()
         if len(split_line) < 5:
             discarded_lines.append(split_line)
@@ -94,6 +94,11 @@ def parser(fpath):
             discarded_lines.append(split_line)
     #        print("case 3 ", split_line) 
             continue
+        if not (is_number(split_line[1][0]) and is_number(split_line[1][1]) 
+                and split_line[1][2] == ":"):
+            discarded_lines.append(split_line)
+            continue
+
         valid_lines.append(split_line)
         date = split_line[0].replace(',', '')
         split_date = date.split("/")
@@ -134,14 +139,15 @@ def messages_over_time(data):
             messages_per_day[message_dict["datetime_date"]] = 1
     return messages_per_day
 
-participant_data = parser(fpath = "chat_histories/archive_juan.txt") #TXT FILE FPATH HERE
+participant_data = parser(fpath = "chat_histories/archive_tiger.txt") #TXT FILE FPATH HERE
 title = ""
 for p in participant_data.keys():
     msg_vs_time_dict = messages_over_time(participant_data[p])
     ax = plt.subplot(111)
-    ax.bar(msg_vs_time_dict.keys(), msg_vs_time_dict.values(),width = 10) #NR OF DAYS PER BAR = width
+    ax.bar(msg_vs_time_dict.keys(), msg_vs_time_dict.values(),width = 10, label = p) #NR OF DAYS PER BAR = width
     ax.xaxis_date()
     plt.xticks(rotation=70)
     title += " "+p
+plt.legend()
 plt.title(title)
 plt.show()
